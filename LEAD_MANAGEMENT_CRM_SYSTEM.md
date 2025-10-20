@@ -588,7 +588,7 @@ const emailVariables = {
   
   // Legal Information
   statuteOfLimitations: '2 years in Georgia',
-  emergencyNumber: '(404) 844-2799',
+  emergencyNumber: '(470) 484-1972',
   
   // Tracking
   emailId: generateEmailId(),

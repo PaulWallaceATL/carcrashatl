@@ -125,7 +125,7 @@ export default function HomePage() {
 ### Call-to-Action Buttons
 ```tsx
 - Primary CTA: "Get Your Free Consultation" → /contact
-- Secondary CTA: "Call (404) 844-2799" → tel:4048442799
+- Secondary CTA: "Call (470) 484-1972" → tel:4704841972
 - Additional CTA: "Schedule Your Consultation" → /contact
 ```
 
