@@ -103,38 +103,46 @@ export function AICaseBuilder() {
     setIsAnalyzing(true);
     setActiveStep('analyze');
 
-    // Simulate AI analysis
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    try {
+      // Call real OpenAI API
+      const response = await fetch('/api/ai/analyze-case', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          caseDetails: {
+            accidentDate: caseDetails.accidentDate,
+            location: caseDetails.location,
+            description: caseDetails.description,
+            injuries: caseDetails.injuries,
+            policeReportFiled: caseDetails.policeReportFiled,
+          },
+          uploadedFiles: uploadedFiles.map(f => ({
+            name: f.name,
+            type: f.type,
+            category: f.category,
+          })),
+        }),
+      });
 
-    // Mock AI analysis results
-    const mockAnalysis: CaseAnalysis = {
-      strengthScore: 78,
-      estimatedValue: {
-        min: 15000,
-        max: 45000
-      },
-      keyFactors: [
-        'Clear evidence of other party fault',
-        'Documented medical treatment',
-        'Property damage exceeds $5,000',
-        'Police report filed within 24 hours'
-      ],
-      nextSteps: [
-        'Obtain complete medical records',
-        'Get vehicle repair estimates',
-        'Contact insurance companies',
-        'Consult with attorney within 30 days'
-      ],
-      urgentActions: [
-        'Schedule follow-up medical appointment',
-        'Preserve evidence (photos, documents)',
-        'Avoid giving recorded statements to insurance'
-      ]
-    };
+      const result = await response.json();
 
-    setCaseAnalysis(mockAnalysis);
-    setIsAnalyzing(false);
-    setActiveStep('review');
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to analyze case');
+      }
+
+      // Set the AI analysis results
+      setCaseAnalysis(result.analysis);
+      setIsAnalyzing(false);
+      setActiveStep('review');
+      
+    } catch (error: any) {
+      console.error('AI Analysis Error:', error);
+      alert('Error analyzing case: ' + (error.message || 'Please try again'));
+      setIsAnalyzing(false);
+      setActiveStep('upload');
+    }
   };
 
   const [caseNumber, setCaseNumber] = useState<string>('');
