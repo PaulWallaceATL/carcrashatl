@@ -94,7 +94,7 @@ export default async function PracticeAreaPage({ params }: PracticeAreaPageProps
     "provider": {
       "@type": "LegalService",
       "name": "Carestia Law",
-      "telephone": "(404) 844-2799"
+      "telephone": "(470) 484-1972"
     }
   };
 

@@ -578,7 +578,7 @@ export default function HomePage() {
               
               <div className="flex flex-col lg:flex-row gap-8 justify-center items-center mb-12">
                 <a 
-                  href="tel:4048442799" 
+                  href="tel:4704841972" 
                   className="group relative inline-flex items-center justify-center px-10 py-6 bg-gradient-to-r from-white to-gray-100 text-gray-900 font-bold rounded-2xl hover:from-gray-100 hover:to-white transition-all duration-300 text-xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
                 >
                   <span className="text-3xl mr-4">📞</span>
@@ -587,7 +587,7 @@ export default function HomePage() {
                 </a>
                 
                 <div className="text-center lg:text-left">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">(404) 844-2799</div>
+                  <div className="text-3xl font-bold text-yellow-400 mb-2">(470) 484-1972</div>
                   <div className="text-blue-200 text-lg">
                     <div className="flex items-center justify-center lg:justify-start space-x-2 mb-1">
                       <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />

@@ -332,7 +332,7 @@ Remember:
 - Keep all medical records and accident documentation
 - Avoid posting about your accident on social media
 
-Questions? Reply to this email or call our emergency line: (404) 844-2799
+Questions? Reply to this email or call our emergency line: (470) 484-1972
 
 Best regards,
 The Car Crashes in Atlanta Team
@@ -420,7 +420,7 @@ This email was sent because you requested help with your car accident case. Your
   </div>
   
   <div style="text-align: center; margin: 30px 0;">
-    <a href="tel:4048442799" style="background: #dc2626; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">📞 Emergency Line: (404) 844-2799</a>
+    <a href="tel:4704841972" style="background: #dc2626; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">📞 Emergency Line: (470) 484-1972</a>
   </div>
   
   <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 30px; text-align: center; color: #6b7280; font-size: 14px;">

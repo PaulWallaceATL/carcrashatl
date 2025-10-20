@@ -78,11 +78,11 @@ export function PracticeAreaTemplate({ practiceArea, structuredData }: PracticeA
                     </Link>
                     
                     <Link 
-                      href="tel:4048442799" 
+                      href="tel:4704841972" 
                       className="inline-flex items-center justify-center px-10 py-5 border-2 border-gold-rich text-gold-rich hover:bg-gold-rich hover:text-black font-bold text-lg rounded-lg transition-all duration-300"
                     >
                       <Phone className="mr-3 h-6 w-6" />
-                      Call (404) 844-2799
+                      Call (470) 484-1972
                     </Link>
                   </div>
                 </div>
@@ -183,10 +183,10 @@ export function PracticeAreaTemplate({ practiceArea, structuredData }: PracticeA
                         </Link>
                         
                         <Link 
-                          href="tel:4048442799" 
+                          href="tel:4704841972" 
                           className="block w-full border-2 border-gold-rich text-gold-rich hover:bg-gold-rich hover:text-black font-bold py-4 rounded-lg transition-all duration-300 text-center"
                         >
-                          Call (404) 844-2799
+                          Call (470) 484-1972
                         </Link>
                       </div>
                       
@@ -274,10 +274,10 @@ export function PracticeAreaTemplate({ practiceArea, structuredData }: PracticeA
                   </Link>
                   
                   <Link 
-                    href="tel:4048442799" 
+                    href="tel:4704841972" 
                     className="inline-flex items-center justify-center px-10 py-5 border-2 border-gold-rich text-gold-rich hover:bg-gold-rich hover:text-black font-bold text-lg rounded-lg transition-all duration-300"
                   >
-                    Call (404) 844-2799
+                    Call (470) 484-1972
                   </Link>
                 </div>
                 

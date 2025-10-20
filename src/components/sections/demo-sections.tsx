@@ -443,7 +443,7 @@ export const ContactSection = () => {
                   size="lg"
                   className="w-full bg-yellow-400 text-black hover:bg-yellow-500 font-semibold"
                 >
-                  Call Now: (404) 844-2799
+                  Call Now: (470) 484-1972
                 </Button>
                 <Button
                   variant="outline"

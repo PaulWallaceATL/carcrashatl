@@ -245,10 +245,10 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                       <p className="text-white/90 text-xs sm:text-sm font-medium">Emergency? Someone is standing by:</p>
                     </div>
                     <a 
-                      href="tel:4048442799" 
+                      href="tel:4704841972" 
                       className="block text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 bg-clip-text text-transparent hover:from-yellow-200 hover:to-yellow-200 transition-all duration-300 hover:scale-105"
                     >
-                      (404) 844-2799
+                      (470) 484-1972
                     </a>
                     <div className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 mt-2">
                       <div className="flex items-center gap-1">

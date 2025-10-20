@@ -60,7 +60,7 @@ const legalLinks: LinkItem[] = [
 ];
 
 const contactInfo: ContactInfo = {
-  phone: '(404) 844-2799',
+  phone: '(470) 484-1972',
   fax: '(404) 844-2796',
   email: 'info@carcrashatl.com',
   address: {

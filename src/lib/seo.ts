@@ -106,7 +106,7 @@ export function generateLocalBusinessSchema() {
     "url": BASE_URL,
     "logo": `${BASE_URL}/images/logo.png`,
     "image": `${BASE_URL}/images/office-exterior.jpg`,
-    "telephone": "+1-404-844-2799",
+    "telephone": "+1-470-484-1972",
     "email": "info@carestialaw.com",
     "foundingDate": "2009",
     "founder": {
@@ -207,7 +207,7 @@ export function generatePracticeAreaSchema(practiceArea: {
     "provider": {
       "@type": "LegalService",
       "name": "Carestia Law",
-      "telephone": "+1-404-844-2799",
+      "telephone": "+1-470-484-1972",
       "url": BASE_URL
     },
     "areaServed": [

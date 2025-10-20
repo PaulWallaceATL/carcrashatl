@@ -35,8 +35,8 @@ const resourceCategories = [
       },
       {
         title: "24/7 Emergency Hotline",
-        href: "tel:4048442799",
-        description: "Call (404) 844-2799 for immediate assistance",
+        href: "tel:4704841972",
+        description: "Call (470) 484-1972 for immediate assistance",
         internal: false
       },
       {
@@ -144,7 +144,7 @@ const quickLinks = [
 
 const emergencyContacts = [
   { name: "Emergency Services", number: "911", description: "Police, Fire, Medical Emergency" },
-  { name: "Our 24/7 Hotline", number: "(404) 844-2799", description: "Legal help and guidance" },
+  { name: "Our 24/7 Hotline", number: "(470) 484-1972", description: "Legal help and guidance" },
   { name: "Georgia State Patrol", number: "404-624-7000", description: "Non-emergency accident reports" },
   { name: "Poison Control", number: "1-800-222-1222", description: "Medical emergencies" }
 ];
@@ -296,11 +296,11 @@ export default function ResourcesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="tel:4048442799"
+                href="tel:4704841972"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-gray-100 transition-colors duration-200 text-lg"
               >
                 <Phone className="h-5 w-5 mr-3" />
-                Call (404) 844-2799
+                Call (470) 484-1972
               </Link>
               <Link
                 href="/free-case-evaluation"

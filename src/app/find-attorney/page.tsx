@@ -359,11 +359,11 @@ export default function FindAttorneyPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="tel:4048442799"
+                href="tel:4704841972"
                 className="inline-flex items-center justify-center bg-green-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-green-700 transition-colors text-lg"
               >
                 <Phone className="mr-2 h-5 w-5" />
-                Call (404) 844-2799
+                Call (470) 484-1972
               </a>
               <span className="text-gray-400 flex items-center justify-center">
                 Available 24/7 for Emergencies

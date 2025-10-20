@@ -108,8 +108,8 @@ export function PracticeAreasSection() {
               className="border-2 border-yellow-400 text-yellow-700 hover:bg-yellow-400 hover:text-black font-bold px-8 py-4"
               asChild
             >
-              <Link href="tel:4048442799">
-                Call (404) 844-2799
+              <Link href="tel:4704841972">
+                Call (470) 484-1972
               </Link>
             </Button>
           </div>

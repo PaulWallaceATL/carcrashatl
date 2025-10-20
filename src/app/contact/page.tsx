@@ -31,7 +31,7 @@ const contactPageStructuredData = {
   "mainEntity": {
     "@type": "LegalService",
     "name": "Carestia Law",
-    "telephone": "+1-404-844-2799",
+    "telephone": "+1-470-484-1972",
     "email": "info@carestialaw.com",
     "address": {
       "@type": "PostalAddress",

@@ -382,10 +382,10 @@ export default function AboutUsPage() {
                   </a>
                   
                   <a 
-                    href="tel:4048442799" 
+                    href="tel:4704841972" 
                     className="inline-flex items-center justify-center px-10 py-5 border-2 border-gold-rich text-gold-rich hover:bg-gold-rich hover:text-black font-bold text-lg rounded-lg transition-all duration-300"
                   >
-                    Call (404) 844-2799
+                    Call (470) 484-1972
                   </a>
                 </div>
                 

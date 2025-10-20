@@ -205,14 +205,14 @@ async function sendEmail(data: ContactFormData): Promise<boolean> {
             
             <div class="contact-info">
               <h3>Need Immediate Assistance?</h3>
-              <p><strong>Phone:</strong> <a href="tel:4048442799" style="color: #0ea5e9;">(404) 844-2799</a></p>
+              <p><strong>Phone:</strong> <a href="tel:4704841972" style="color: #0ea5e9;">(470) 484-1972</a></p>
               <p><strong>Email:</strong> <a href="mailto:info@carestialaw.com" style="color: #0ea5e9;">info@carestialaw.com</a></p>
               <p><strong>Emergency:</strong> Available 24/7 for urgent legal matters</p>
             </div>
             
             <p>Our experienced attorneys have successfully handled over 500 cases and recovered more than $50 million for our clients. We work on a contingency fee basis, which means you pay nothing unless we win your case.</p>
             
-            <a href="tel:4048442799" class="button">Call Us Now: (404) 844-2799</a>
+            <a href="tel:4704841972" class="button">Call Us Now: (470) 484-1972</a>
           </div>
           
           <div class="footer">

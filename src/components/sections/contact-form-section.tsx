@@ -515,11 +515,11 @@ export function ContactFormSection() {
                   <div>
                     <p className="font-semibold text-black">Phone</p>
                     <a 
-                      href="tel:4048442799" 
+                      href="tel:4704841972" 
                       className="text-amber-700 hover:text-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 rounded"
-                      aria-label="Call Carestia Law at 4 0 4 8 4 4 2 7 9 9"
+                      aria-label="Call Carestia Law at 4 7 0 4 8 4 1 9 7 2"
                     >
-                      (404) 844-2799
+                      (470) 484-1972
                     </a>
                   </div>
                 </div>

@@ -62,7 +62,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
   className,
   monogram = 'CA',
   firmName = 'Car Crashes in Atlanta',
-  contactNumber = '(404) 844-2799',
+  contactNumber = '(470) 484-1972',
   sticky = true,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
