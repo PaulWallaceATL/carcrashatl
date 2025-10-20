@@ -81,7 +81,7 @@ export default function HomePage() {
           <HeroSection className="modern-hero-2025" />
           
           {/* Immediate Support Section - Redesigned */}
-          <section className="py-32 relative overflow-hidden" aria-labelledby="immediate-support-heading">
+          <section className="py-16 sm:py-24 md:py-32 relative overflow-hidden" aria-labelledby="immediate-support-heading">
             {/* Enhanced Background Elements */}
             <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-red-50 to-pink-50" />
             <div className="absolute inset-0 opacity-30" style={{
@@ -89,32 +89,32 @@ export default function HomePage() {
             }} />
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-red-400 to-pink-400" />
             
-            <div className="relative max-w-7xl mx-auto px-4">
-              <div className="text-center mb-24">
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16 sm:mb-20 md:mb-24">
                 {/* Enhanced Badge */}
-                <div className="inline-flex items-center space-x-3 bg-white/80 backdrop-blur-sm border-2 border-red-200 rounded-full px-8 py-4 mb-10 shadow-lg shadow-red-100 hover:shadow-red-200 transition-all duration-300 group">
+                <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/80 backdrop-blur-sm border-2 border-red-200 rounded-full px-4 sm:px-6 md:px-8 py-3 sm:py-4 mb-8 sm:mb-10 shadow-lg shadow-red-100 hover:shadow-red-200 transition-all duration-300 group">
                   <div className="relative flex h-3 w-3">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 group-hover:bg-red-600 transition-colors"></span>
                   </div>
-                  <span className="text-red-700 font-semibold text-sm md:text-base">We know this is overwhelming</span>
+                  <span className="text-red-700 font-semibold text-xs sm:text-sm md:text-base">We know this is overwhelming</span>
                 </div>
                 
                 {/* Better Typography */}
-                <h2 id="immediate-support-heading" className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-10 leading-[1.1] tracking-tight">
-                  <span className="block mb-3">Right Now, Everything Feels</span>
+                <h2 id="immediate-support-heading" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-8 sm:mb-10 leading-[1.05] sm:leading-[1.1] tracking-tight px-4">
+                  <span className="block mb-2 sm:mb-3">Right Now, Everything Feels</span>
                   <span className="block bg-gradient-to-r from-red-600 via-red-500 to-pink-600 bg-clip-text text-transparent">
                     Completely Overwhelming
                   </span>
                 </h2>
                 
-                <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-normal">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
                   Car accidents turn your world upside down in an instant. You're probably feeling <span className="text-gray-900 font-semibold">scared, confused, angry, or lost</span> right now. Those feelings are <span className="text-red-600 font-semibold">completely normal</span>. Take a deep breath - 
                   we're going to help you figure this out, <span className="text-gray-900 font-semibold">one step at a time</span>.
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
                 {[
                   {
                     step: "1",
@@ -166,19 +166,19 @@ export default function HomePage() {
                     <div className={`absolute inset-0 bg-gradient-to-br ${item.glowColor} rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                     
                     {/* Card */}
-                    <div className={`relative ${item.bgColor} p-8 rounded-3xl shadow-xl border-2 ${item.borderColor} ${item.shadowColor} transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] h-full`}>
+                    <div className={`relative ${item.bgColor} p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl border-2 ${item.borderColor} ${item.shadowColor} transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] h-full`}>
                       {/* Top gradient accent */}
-                      <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${item.color} rounded-t-3xl`} />
+                      <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${item.color} rounded-t-2xl sm:rounded-t-3xl`} />
                       
                       {/* Step Number Badge */}
-                      <div className="absolute -top-5 -left-5 w-12 h-12 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl flex items-center justify-center border-2 border-gray-100 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                        <span className={`text-lg font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>{item.step}</span>
+                      <div className="absolute -top-4 -left-4 sm:-top-5 sm:-left-5 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-white to-gray-50 rounded-xl sm:rounded-2xl shadow-2xl flex items-center justify-center border-2 border-gray-100 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                        <span className={`text-base sm:text-lg font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>{item.step}</span>
                       </div>
                       
                       {/* Content */}
-                      <div className="text-center mb-6 mt-4">
-                        <div className="text-5xl mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">{item.icon}</div>
-                        <h3 className="font-bold text-gray-900 text-xl mb-4 leading-tight group-hover:text-gray-800 transition-colors">{item.title}</h3>
+                      <div className="text-center mb-4 sm:mb-6 mt-2 sm:mt-4">
+                        <div className="text-4xl sm:text-5xl mb-4 sm:mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">{item.icon}</div>
+                        <h3 className="font-bold text-gray-900 text-lg sm:text-xl mb-3 sm:mb-4 leading-tight group-hover:text-gray-800 transition-colors">{item.title}</h3>
                       </div>
                       
                       <p className="text-gray-600 leading-relaxed text-center text-sm">{item.description}</p>
@@ -190,15 +190,15 @@ export default function HomePage() {
                 ))}
               </div>
               
-              <div className="text-center mt-24">
-                <div className="relative inline-block group">
+              <div className="text-center mt-16 sm:mt-20 md:mt-24 px-4">
+                <div className="relative inline-block group w-full sm:w-auto">
                   {/* Glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300" />
                   
                   {/* Button */}
                   <a 
                     href="/what-to-do-after-car-accident" 
-                    className="relative inline-flex items-center justify-center px-12 py-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 text-white font-bold rounded-2xl hover:from-blue-700 hover:via-indigo-700 hover:to-indigo-800 transition-all duration-300 text-lg shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105"
+                    className="relative inline-flex items-center justify-center w-full sm:w-auto px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 text-white font-bold rounded-2xl hover:from-blue-700 hover:via-indigo-700 hover:to-indigo-800 transition-all duration-300 text-base sm:text-lg shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105"
                   >
                     <span className="relative z-10">Show Me Exactly What to Do Next</span>
                     <svg className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -209,7 +209,7 @@ export default function HomePage() {
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ backgroundSize: '200% 100%', animation: 'shimmer 2s infinite' }} />
                   </a>
                 </div>
-                <div className="mt-6 flex items-center justify-center gap-4 text-gray-600 text-sm">
+                <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-gray-600 text-xs sm:text-sm">
                   <div className="flex items-center gap-1.5">
                     <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

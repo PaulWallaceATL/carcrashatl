@@ -157,8 +157,8 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+        <div className="grid lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
           
           {/* Left Column - Emotional Impact */}
           <div className={`lg:col-span-7 text-center lg:text-left transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -173,8 +173,8 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
             </div>
 
             {/* Main Headline with Better Typography & Stagger Animation */}
-            <div className="space-y-6 mb-10">
-              <h1 id="hero-heading" className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.1] tracking-tight">
+            <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-10">
+              <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.05] sm:leading-[1.1] tracking-tight">
                 <span className={`block transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   You're Not
                 </span>
@@ -186,7 +186,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                 </span>
               </h1>
               
-              <p className={`text-xl md:text-2xl text-blue-100/90 leading-relaxed max-w-2xl font-light transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <p className={`text-lg sm:text-xl md:text-2xl text-blue-100/90 leading-relaxed max-w-2xl font-light transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 Right now, everything feels overwhelming and scary. <span className="text-white font-normal">We get it.</span> We've helped over <span className="text-emerald-400 font-semibold">500 families</span> through this exact situation, and we're here to guide you through every single step.
               </p>
             </div>
@@ -214,10 +214,10 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
             </div>
 
             {/* Enhanced CTAs with Better Hierarchy */}
-            <div className={`flex flex-col sm:flex-row gap-4 mb-12 transition-all duration-700 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10 sm:mb-12 transition-all duration-700 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <Link
                 href="/what-to-do-after-car-accident"
-                className="group relative inline-flex items-center justify-center px-8 py-5 bg-gradient-to-r from-red-500 via-red-600 to-red-500 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-bold rounded-2xl transition-all duration-500 text-lg shadow-2xl shadow-red-500/30 hover:shadow-red-500/50 transform hover:-translate-y-1 hover:scale-105"
+                className="group relative inline-flex items-center justify-center px-6 sm:px-8 py-4 sm:py-5 bg-gradient-to-r from-red-500 via-red-600 to-red-500 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-bold rounded-2xl transition-all duration-500 text-base sm:text-lg shadow-2xl shadow-red-500/30 hover:shadow-red-500/50 transform hover:-translate-y-1 hover:scale-105"
                 style={{ backgroundSize: '200% 100%' }}
               >
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ backgroundSize: '200% 100%', animation: 'shimmer 2s infinite' }} />
@@ -227,7 +227,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
               
               <Link
                 href="/find-attorney"
-                className="group relative inline-flex items-center justify-center px-8 py-5 bg-white/10 backdrop-blur-md border-2 border-white/40 text-white font-bold rounded-2xl hover:bg-white/20 hover:border-white/60 transition-all duration-300 text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+                className="group relative inline-flex items-center justify-center px-6 sm:px-8 py-4 sm:py-5 bg-white/10 backdrop-blur-md border-2 border-white/40 text-white font-bold rounded-2xl hover:bg-white/20 hover:border-white/60 transition-all duration-300 text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
               >
                 <span>Find My Attorney</span>
                 <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
@@ -237,20 +237,20 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
             {/* Emergency Contact - Premium Design */}
             <div className={`relative group transition-all duration-700 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-              <div className="relative p-6 bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl rounded-2xl border border-white/30 shadow-2xl hover:shadow-yellow-500/20 transition-all duration-500">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
+              <div className="relative p-4 sm:p-6 bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl rounded-2xl border border-white/30 shadow-2xl hover:shadow-yellow-500/20 transition-all duration-500">
+                <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-3 sm:gap-4">
+                  <div className="flex-1 text-center sm:text-left">
+                    <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
                       <PhoneCall className="h-4 w-4 text-yellow-400" />
-                      <p className="text-white/90 text-sm font-medium">Emergency? Someone is standing by:</p>
+                      <p className="text-white/90 text-xs sm:text-sm font-medium">Emergency? Someone is standing by:</p>
                     </div>
                     <a 
                       href="tel:4048442799" 
-                      className="block text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 bg-clip-text text-transparent hover:from-yellow-200 hover:to-yellow-200 transition-all duration-300 hover:scale-105 inline-block"
+                      className="block text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 bg-clip-text text-transparent hover:from-yellow-200 hover:to-yellow-200 transition-all duration-300 hover:scale-105"
                     >
                       (404) 844-2799
                     </a>
-                    <div className="flex items-center gap-3 mt-2">
+                    <div className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 mt-2">
                       <div className="flex items-center gap-1">
                         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                         <p className="text-white/70 text-xs font-medium">LIVE NOW</p>
@@ -259,8 +259,8 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                       <p className="text-white/70 text-xs">Real person answers</p>
                     </div>
                   </div>
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="relative w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:shadow-green-500/50 transition-shadow duration-300">
+                  <div className="flex flex-col items-center gap-2 flex-shrink-0">
+                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:shadow-green-500/50 transition-shadow duration-300">
                       <div className="absolute inset-0 bg-green-400/50 rounded-full animate-ping" />
                       <div className="w-3 h-3 bg-white rounded-full relative z-10" />
                     </div>
@@ -272,7 +272,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
           </div>
 
           {/* Right Column - Action Steps with Premium Design */}
-          <div className={`lg:col-span-5 space-y-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
+          <div className={`lg:col-span-5 space-y-6 sm:space-y-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
             
             {/* What to Do Section - Glassmorphism Design */}
             <div className="relative group">
@@ -280,13 +280,13 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
               
               {/* Main card */}
-              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
+              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
                 {/* Top accent line */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400" />
                 
-                <div className="p-8">
-                  <div className="text-center mb-8">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
+                <div className="p-6 sm:p-8">
+                  <div className="text-center mb-6 sm:mb-8">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
                       What You Need to Do
                     </h2>
                     <p className="text-blue-200/90 text-sm md:text-base">
