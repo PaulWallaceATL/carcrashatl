@@ -108,7 +108,7 @@ export function TestimonialsSection() {
             <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
             <span className="text-yellow-700 font-semibold text-sm md:text-base">Success Stories</span>
           </div>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-10 leading-[1.1] tracking-tight">
+          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-10 leading-[1.05] tracking-tighter">
             <span className="block mb-3">Real Results from</span>
             <span className="block bg-gradient-to-r from-yellow-600 via-amber-600 to-orange-600 bg-clip-text text-transparent">
               Atlanta Car Accident Cases

@@ -97,10 +97,10 @@ export function Footer() {
               {/* Logo */}
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-black font-bold text-lg font-serif">CA</span>
+                  <span className="text-black font-bold text-lg font-display tracking-tight">CA</span>
                 </div>
                 <div>
-                  <div className="text-xl font-bold font-serif text-white">
+                  <div className="text-xl font-bold font-display text-white tracking-tight">
                     Car Crashes in Atlanta
                   </div>
                   <div className="text-sm text-yellow-400 font-medium">

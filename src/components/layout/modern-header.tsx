@@ -206,13 +206,13 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
                 isScrolled ? 'logo-scrolled' : 'logo-normal'
               )}>
                 <span className={cn(
-                  "text-black font-bold font-serif",
+                  "text-black font-bold font-display tracking-tight",
                   isScrolled ? 'text-lg' : 'text-xl'
                 )}>{monogram}</span>
               </div>
               <div className="hidden sm:block">
                 <span className={cn(
-                  "font-bold font-serif text-white group-hover:text-yellow-400 transition-colors duration-300",
+                  "font-bold font-display text-white group-hover:text-yellow-400 transition-colors duration-300 tracking-tight",
                   isScrolled ? 'text-lg' : 'text-xl'
                 )}>{firmName}</span>
               </div>
@@ -319,9 +319,9 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
         <div className="flex items-center justify-between p-6 border-b border-yellow-400/20">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded flex items-center justify-center">
-              <span className="font-serif font-bold text-black text-sm">{monogram}</span>
+              <span className="font-display font-bold text-black text-sm tracking-tight">{monogram}</span>
             </div>
-            <span className="font-serif font-bold text-white text-sm">{firmName}</span>
+            <span className="font-display font-bold text-white text-sm tracking-tight">{firmName}</span>
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(false)}

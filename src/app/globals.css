@@ -25,9 +25,9 @@
     --ring: oklch(0.15 0 0);
     --radius: 0.5rem;
 
-    /* Font Variables */
-    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-playfair: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    /* Modern Font Variables - Apple/Airbnb Style */
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+    --font-display: 'DM Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
   }
 
   .dark {
@@ -74,6 +74,33 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
+    font-weight: 400;
+    letter-spacing: -0.011em; /* Apple-like subtle tracking */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Headings use display font with Apple-like letter spacing */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  
+  h1 {
+    letter-spacing: -0.04em; /* Tighter on large display text */
+    font-weight: 700;
+  }
+  
+  h2 {
+    letter-spacing: -0.035em;
+    font-weight: 700;
+  }
+  
+  h3 {
+    letter-spacing: -0.02em;
+    font-weight: 600;
   }
   
   html {
@@ -84,12 +111,25 @@
     overflow-x: hidden;
     width: 100%;
   }
+
   
   /* Smooth scroll for all browsers */
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
     }
+  }
+  
+  /* Modern button and link typography */
+  button, a {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  
+  /* Strong/bold text uses display font */
+  strong, b {
+    font-weight: 600;
+    font-family: var(--font-display);
   }
   
   img, video, iframe {
@@ -194,8 +234,41 @@
   animation: revealUp 0.8s ease-out forwards;
 }
 
-/* Modern Law Firm Design System - 2025 Trends */
+/* Apple/Airbnb Typography Utilities */
 @layer utilities {
+  /* Display Text - For large headlines */
+  .text-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+  
+  /* Body Text - For paragraphs */
+  .text-body {
+    font-family: var(--font-inter);
+    font-weight: 400;
+    letter-spacing: -0.011em;
+    line-height: 1.6;
+  }
+  
+  /* Subheadline - For supporting text */
+  .text-subhead {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+  }
+  
+  /* Caption - For small text */
+  .text-caption {
+    font-family: var(--font-inter);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    line-height: 1.5;
+  }
+
+/* Modern Law Firm Design System - 2025 Trends */
   .text-gold-rich {
     color: #FFD700;
   }
@@ -252,21 +325,23 @@
     pointer-events: none;
   }
   
-  /* Modern button styles */
+  /* Modern button styles - Apple/Airbnb inspired */
   .btn-modern-primary {
-    @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
+    @apply inline-flex items-center justify-center px-8 py-4 font-display font-bold text-lg rounded-lg;
     @apply bg-gradient-to-r from-amber-400 to-amber-500 text-black;
     @apply transition-transform duration-200 ease-out;
     @apply hover:from-amber-500 hover:to-amber-600 hover:-translate-y-0.5;
     @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
+    letter-spacing: -0.015em;
   }
   
   .btn-modern-secondary {
-    @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
+    @apply inline-flex items-center justify-center px-8 py-4 font-display font-bold text-lg rounded-lg;
     @apply border-2 border-amber-400 text-amber-300 bg-transparent;
     @apply transition-all duration-200 ease-out;
     @apply hover:bg-amber-400 hover:text-black hover:-translate-y-0.5;
     @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
+    letter-spacing: -0.015em;
   }
   
   /* Modern card styles */

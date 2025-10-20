@@ -223,7 +223,7 @@ export function ContactFormSection() {
           <Badge variant="outline" className="mb-6 border-amber-600 text-amber-800 bg-amber-50">
             Free Consultation
           </Badge>
-          <h2 id="contact-heading" className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight">
+          <h2 id="contact-heading" className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight tracking-tight">
             Get Your Free Legal Consultation
             <span className="block text-amber-700">Start Your Case Today</span>
           </h2>

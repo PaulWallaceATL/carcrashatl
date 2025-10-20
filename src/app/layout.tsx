@@ -1,27 +1,29 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { AnalyticsWrapper } from '@/components/layout/analytics-wrapper';
 
-// Mobile-optimized font loading
+// Apple/Airbnb-inspired font system
+// Inter for body text (similar to SF Pro Text)
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
   preload: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-  // Mobile-first: Only essential weights
-  weight: ['400', '600'],
+  fallback: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'system-ui', 'sans-serif'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal'],
 });
 
-const playfairDisplay = Playfair_Display({
+// DM Sans for display/headings (similar to SF Pro Display & Airbnb's Cereal)
+const dmSans = DM_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-playfair',
-  preload: false, // Don't preload on mobile to save bandwidth
-  fallback: ['Georgia', 'Times New Roman', 'serif'],
-  // Mobile-first: Minimal weights
-  weight: ['600'],
+  variable: '--font-display',
+  preload: true,
+  fallback: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'system-ui', 'sans-serif'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal'],
 });
 
 export const viewport: Viewport = {
@@ -117,7 +119,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${inter.variable} ${playfairDisplay.variable}`}
+      className={`${inter.variable} ${dmSans.variable}`}
       suppressHydrationWarning
     >
       <head>

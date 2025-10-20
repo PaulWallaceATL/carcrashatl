@@ -22,7 +22,7 @@ export function PracticeAreasSection() {
           <Badge variant="outline" className="mb-6 border-yellow-600 text-yellow-700">
             Areas of Practice
           </Badge>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight tracking-tight">
             Comprehensive Legal
             <span className="block text-amber-700">Representation</span>
           </h2>

@@ -101,7 +101,7 @@ export default function HomePage() {
                 </div>
                 
                 {/* Better Typography */}
-                <h2 id="immediate-support-heading" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-8 sm:mb-10 leading-[1.05] sm:leading-[1.1] tracking-tight px-4">
+                <h2 id="immediate-support-heading" className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-8 sm:mb-10 leading-[1.05] sm:leading-[1.1] tracking-tighter px-4">
                   <span className="block mb-2 sm:mb-3">Right Now, Everything Feels</span>
                   <span className="block bg-gradient-to-r from-red-600 via-red-500 to-pink-600 bg-clip-text text-transparent">
                     Completely Overwhelming
@@ -178,7 +178,7 @@ export default function HomePage() {
                       {/* Content */}
                       <div className="text-center mb-4 sm:mb-6 mt-2 sm:mt-4">
                         <div className="text-4xl sm:text-5xl mb-4 sm:mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">{item.icon}</div>
-                        <h3 className="font-bold text-gray-900 text-lg sm:text-xl mb-3 sm:mb-4 leading-tight group-hover:text-gray-800 transition-colors">{item.title}</h3>
+                        <h3 className="font-display font-bold text-gray-900 text-lg sm:text-xl mb-3 sm:mb-4 leading-tight tracking-tight group-hover:text-gray-800 transition-colors">{item.title}</h3>
                       </div>
                       
                       <p className="text-gray-600 leading-relaxed text-center text-sm">{item.description}</p>
@@ -253,7 +253,7 @@ export default function HomePage() {
                     <span className="text-blue-700 font-semibold text-sm md:text-base">We've been where you are</span>
                   </div>
                   
-                  <h2 id="understanding-heading" className="text-5xl md:text-6xl font-bold text-gray-900 mb-12 leading-[1.1] tracking-tight">
+                  <h2 id="understanding-heading" className="font-display text-5xl md:text-6xl font-bold text-gray-900 mb-12 leading-[1.05] tracking-tighter">
                     <span className="block mb-3">We Actually Understand</span>
                     <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                       What You're Going Through
@@ -309,7 +309,7 @@ export default function HomePage() {
                       {/* Top accent */}
                       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-t-3xl" />
                       
-                      <h3 className="text-2xl font-bold text-emerald-900 mb-6 flex items-center gap-3">
+                      <h3 className="font-display text-2xl font-bold text-emerald-900 mb-6 flex items-center gap-3 tracking-tight">
                         <span className="text-3xl">💡</span>
                         Here's what most people don't know:
                       </h3>
@@ -359,7 +359,7 @@ export default function HomePage() {
                       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-t-3xl" />
                       <div className="flex items-center mb-8">
                         <div className="text-4xl mr-4 animate-pulse">⚠️</div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-yellow-900">Don't Make These Costly Mistakes</h3>
+                        <h3 className="font-display text-2xl md:text-3xl font-bold text-yellow-900 tracking-tight">Don't Make These Costly Mistakes</h3>
                       </div>
                       <div className="space-y-4">
                         {[
@@ -387,7 +387,7 @@ export default function HomePage() {
                       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-t-3xl" />
                       <div className="flex items-center mb-6">
                         <div className="text-4xl mr-4">💙</div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-blue-900">Remember: This Isn't Your Fault</h3>
+                        <h3 className="font-display text-2xl md:text-3xl font-bold text-blue-900 tracking-tight">Remember: This Isn't Your Fault</h3>
                       </div>
                       <p className="text-blue-900 leading-relaxed text-lg mb-6">
                         <span className="font-semibold">You didn't ask for this to happen.</span> You're not overreacting by seeking help. 
@@ -421,7 +421,7 @@ export default function HomePage() {
                   <span className="text-blue-700 font-semibold text-sm md:text-base">You deserve better than the runaround</span>
                 </div>
                 
-                <h2 id="connection-heading" className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-10 leading-[1.1] tracking-tight">
+                <h2 id="connection-heading" className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-10 leading-[1.05] tracking-tighter">
                   <span className="block mb-3">Connect with Attorneys Who</span>
                   <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 bg-clip-text text-transparent">
                     Actually Care About You
@@ -469,7 +469,7 @@ export default function HomePage() {
                           {feature.icon}
                         </div>
                       </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">{feature.title}</h3>
+                      <h3 className="font-display text-2xl font-bold text-gray-900 mb-4 leading-tight tracking-tight">{feature.title}</h3>
                       <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
@@ -483,7 +483,7 @@ export default function HomePage() {
                   <div className="relative bg-white p-10 rounded-3xl shadow-2xl border-2 border-blue-200 hover:border-blue-300 transition-all duration-300 hover:-translate-y-2">
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-3xl" />
                     <div className="text-6xl mb-6">🎯</div>
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4">Find the Right Attorney for You</h3>
+                    <h3 className="font-display text-3xl font-bold text-gray-900 mb-4 tracking-tight">Find the Right Attorney for You</h3>
                     <p className="text-gray-600 mb-8 leading-relaxed text-lg">
                       Get matched with <span className="text-gray-900 font-semibold">experienced attorneys</span> who specialize in cases like yours. 
                       Free consultations, no pressure, no upfront costs.
@@ -519,7 +519,7 @@ export default function HomePage() {
                   <div className="relative bg-white p-10 rounded-3xl shadow-2xl border-2 border-purple-200 hover:border-purple-300 transition-all duration-300 hover:-translate-y-2">
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 to-purple-600 rounded-t-3xl" />
                     <div className="text-6xl mb-6">🤖</div>
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4">Build Your Case First</h3>
+                    <h3 className="font-display text-3xl font-bold text-gray-900 mb-4 tracking-tight">Build Your Case First</h3>
                     <p className="text-gray-600 mb-8 leading-relaxed text-lg">
                       Use our <span className="text-gray-900 font-semibold">AI-powered tool</span> to organize your evidence and understand your case strength 
                       before talking to attorneys.
@@ -564,7 +564,7 @@ export default function HomePage() {
             </div>
             
             <div className="relative max-w-4xl mx-auto px-4 text-center">
-              <h2 id="support-heading" className="text-4xl md:text-5xl font-bold text-white mb-10 leading-tight">
+              <h2 id="support-heading" className="font-display text-4xl md:text-5xl font-bold text-white mb-10 leading-tight tracking-tight">
                 You Don't Have to Figure 
                 <span className="block bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   This Out Alone

@@ -174,7 +174,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
 
             {/* Main Headline with Better Typography & Stagger Animation */}
             <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-10">
-              <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.05] sm:leading-[1.1] tracking-tight">
+              <h1 id="hero-heading" className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.05] sm:leading-[1.1] tracking-tighter">
                 <span className={`block transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   You're Not
                 </span>
@@ -286,10 +286,10 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                 
                 <div className="p-6 sm:p-8">
                   <div className="text-center mb-6 sm:mb-8">
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
+                    <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
                       What You Need to Do
                     </h2>
-                    <p className="text-blue-200/90 text-sm md:text-base">
+                    <p className="font-sans text-blue-200/90 text-sm md:text-base tracking-snug">
                       Step by step, we'll get through this together
                     </p>
                   </div>
@@ -315,7 +315,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                             </div>
                             <div className="flex-1">
                               <div className="flex items-center space-x-2 mb-2">
-                                <h3 className="font-bold text-white text-lg leading-tight">{step.subtitle}</h3>
+                                <h3 className="font-display font-bold text-white text-lg leading-tight tracking-tight">{step.subtitle}</h3>
                                 {step.urgent && (
                                   <span className="px-2.5 py-1 bg-red-500 text-white text-xs font-bold rounded-full animate-pulse shadow-lg shadow-red-500/50">
                                     URGENT
