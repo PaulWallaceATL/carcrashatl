@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export const runtime = 'edge';
 export const maxDuration = 30; // 30 seconds max for analysis
+
+// Initialize OpenAI client lazily (at runtime, not build time)
+function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  
+  if (!apiKey) {
+    throw new Error('OPENAI_API_KEY environment variable is not set');
+  }
+  
+  return new OpenAI({
+    apiKey: apiKey,
+  });
+}
 
 interface CaseAnalysisRequest {
   caseDetails: {
@@ -26,14 +34,6 @@ interface CaseAnalysisRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    // Validate API key
-    if (!process.env.OPENAI_API_KEY) {
-      return NextResponse.json(
-        { error: 'OpenAI API key not configured' },
-        { status: 500 }
-      );
-    }
-
     const body: CaseAnalysisRequest = await request.json();
     const { caseDetails, uploadedFiles } = body;
 
@@ -81,6 +81,9 @@ Consider:
 
 Be realistic, helpful, and legally accurate. Focus on empowering the victim with knowledge.`;
 
+    // Get OpenAI client (lazy initialization)
+    const openai = getOpenAIClient();
+    
     // Call OpenAI API
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o', // Latest model
