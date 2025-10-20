@@ -20,7 +20,8 @@ import {
   Star,
   TrendingUp,
   FileCheck,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -51,9 +52,14 @@ export function AICaseBuilder() {
   const [activeStep, setActiveStep] = useState<'upload' | 'analyze' | 'review' | 'export'>('upload');
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [caseDetails, setCaseDetails] = useState({
+    name: '',
+    email: '',
+    phone: '',
     accidentDate: '',
     location: '',
-    description: ''
+    description: '',
+    injuries: '',
+    policeReportFiled: false,
   });
   const [caseAnalysis, setCaseAnalysis] = useState<CaseAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -131,26 +137,74 @@ export function AICaseBuilder() {
     setActiveStep('review');
   };
 
-  const exportCaseFile = () => {
-    const reportData = {
-      caseDetails,
-      uploadedFiles,
-      caseAnalysis,
-      generatedDate: new Date()
-    };
+  const [caseNumber, setCaseNumber] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Mock download trigger
-    const dataStr = JSON.stringify(reportData, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = `car-accident-case-${new Date().toISOString().split('T')[0]}.json`;
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
+  const exportCaseFile = async () => {
+    setIsSubmitting(true);
 
-    setActiveStep('export');
+    try {
+      // Submit case to database
+      const response = await fetch('/api/cases/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: caseDetails.name,
+          email: caseDetails.email,
+          phone: caseDetails.phone,
+          case_type: 'car_accident',
+          incident_date: caseDetails.accidentDate,
+          incident_location: caseDetails.location,
+          description: caseDetails.description,
+          injuries: caseDetails.injuries,
+          police_report_filed: caseDetails.policeReportFiled,
+          ai_case_data: {
+            analysis: caseAnalysis,
+            uploadedFiles: uploadedFiles.map(f => ({
+              name: f.name,
+              type: f.type,
+              category: f.category,
+            })),
+          },
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit case');
+      }
+
+      // Save case number for display
+      setCaseNumber(result.case_number);
+
+      // Also download JSON backup
+      const reportData = {
+        caseNumber: result.case_number,
+        caseDetails,
+        uploadedFiles,
+        caseAnalysis,
+        generatedDate: new Date()
+      };
+
+      const dataStr = JSON.stringify(reportData, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `case-${result.case_number}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+
+      setActiveStep('export');
+      setIsSubmitting(false);
+    } catch (error: any) {
+      alert('Error submitting case: ' + error.message);
+      setIsSubmitting(false);
+    }
   };
 
   const getStepStatus = (stepId: string) => {
@@ -311,23 +365,61 @@ export function AICaseBuilder() {
                   </div>
                 )}
 
-                {/* Quick Case Details Form */}
+                {/* Case Details Form */}
                 <div className="mt-8 pt-8 border-t border-gray-200">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4">Basic Case Information</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-4">Your Information</h4>
+                  <div className="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="John Doe"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        value={caseDetails.name}
+                        onChange={(e) => setCaseDetails(prev => ({ ...prev, name: e.target.value }))}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="john@example.com"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        value={caseDetails.email}
+                        onChange={(e) => setCaseDetails(prev => ({ ...prev, email: e.target.value }))}
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                      <input
+                        type="tel"
+                        placeholder="(555) 123-4567"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        value={caseDetails.phone}
+                        onChange={(e) => setCaseDetails(prev => ({ ...prev, phone: e.target.value }))}
+                      />
+                    </div>
+                  </div>
+
+                  <h4 className="text-lg font-semibold text-gray-900 mb-4 mt-8">Accident Details</h4>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Accident Date</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Accident Date *</label>
                       <input
                         type="date"
+                        required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         value={caseDetails.accidentDate}
                         onChange={(e) => setCaseDetails(prev => ({ ...prev, accidentDate: e.target.value }))}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Location *</label>
                       <input
                         type="text"
+                        required
                         placeholder="Street address or intersection"
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         value={caseDetails.location}
@@ -335,14 +427,36 @@ export function AICaseBuilder() {
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Accident Description</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Accident Description *</label>
                       <textarea
                         rows={3}
+                        required
                         placeholder="Briefly describe what happened..."
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         value={caseDetails.description}
                         onChange={(e) => setCaseDetails(prev => ({ ...prev, description: e.target.value }))}
                       />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Injuries (if any)</label>
+                      <textarea
+                        rows={2}
+                        placeholder="Describe any injuries sustained..."
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        value={caseDetails.injuries}
+                        onChange={(e) => setCaseDetails(prev => ({ ...prev, injuries: e.target.value }))}
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="flex items-center space-x-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={caseDetails.policeReportFiled}
+                          onChange={(e) => setCaseDetails(prev => ({ ...prev, policeReportFiled: e.target.checked }))}
+                          className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        />
+                        <span className="text-sm font-medium text-gray-700">Police report was filed</span>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -352,12 +466,17 @@ export function AICaseBuilder() {
                   <Button
                     size="lg"
                     onClick={runAIAnalysis}
-                    disabled={uploadedFiles.length === 0 || !caseDetails.accidentDate}
+                    disabled={uploadedFiles.length === 0 || !caseDetails.accidentDate || !caseDetails.name || !caseDetails.email || !caseDetails.description}
                     className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
                   >
                     <Brain className="h-5 w-5 mr-2" />
                     Analyze My Case with AI
                   </Button>
+                  {(!caseDetails.name || !caseDetails.email || !caseDetails.description) && (
+                    <p className="mt-3 text-sm text-gray-600">
+                      Please fill in all required fields (*) to continue
+                    </p>
+                  )}
                 </div>
               </Card>
             </div>
@@ -499,37 +618,68 @@ export function AICaseBuilder() {
                 </div>
               </Card>
 
-              {/* Export Button */}
+              {/* Submit Case Button */}
               <div className="text-center">
                 <Button
                   size="lg"
                   onClick={exportCaseFile}
+                  disabled={isSubmitting}
                   className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700"
                 >
-                  <Download className="h-5 w-5 mr-2" />
-                  Export Professional Report
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                      Submitting Case...
+                    </>
+                  ) : (
+                    <>
+                      <Download className="h-5 w-5 mr-2" />
+                      Submit Case & Download Report
+                    </>
+                  )}
                 </Button>
               </div>
             </div>
           )}
 
-          {/* Step 4: Export Complete */}
+          {/* Step 4: Case Submitted */}
           {activeStep === 'export' && (
             <div className="text-center">
               <Card className="p-12">
                 <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle className="h-10 w-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Report Generated Successfully!</h3>
-                <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                  Your comprehensive case file has been downloaded and is ready to share with attorneys.
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Case Submitted Successfully!</h3>
+                <p className="text-gray-600 mb-4 max-w-2xl mx-auto">
+                  Your case has been submitted and your report has been downloaded.
                 </p>
+                
+                {caseNumber && (
+                  <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-8 max-w-md mx-auto">
+                    <div className="text-sm font-medium text-blue-900 mb-2">Your Case Number</div>
+                    <div className="text-3xl font-bold font-mono text-blue-700 mb-3">{caseNumber}</div>
+                    <div className="text-sm text-blue-800">
+                      Save this number to track your case status at any time
+                    </div>
+                  </div>
+                )}
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button variant="outline" onClick={() => {
                     setActiveStep('upload');
                     setUploadedFiles([]);
                     setCaseAnalysis(null);
+                    setCaseDetails({
+                      name: '',
+                      email: '',
+                      phone: '',
+                      accidentDate: '',
+                      location: '',
+                      description: '',
+                      injuries: '',
+                      policeReportFiled: false,
+                    });
+                    setCaseNumber('');
                   }}>
                     Start New Case
                   </Button>
@@ -537,8 +687,8 @@ export function AICaseBuilder() {
                     className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
                     asChild
                   >
-                    <a href="/find-attorney">
-                      Find an Attorney Now
+                    <a href="/track-case">
+                      Track Your Case
                     </a>
                   </Button>
                 </div>
