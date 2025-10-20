@@ -1,0 +1,517 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.15 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.15 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.15 0 0);
+    --primary: oklch(0.15 0 0);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.96 0 0);
+    --secondary-foreground: oklch(0.15 0 0);
+    --muted: oklch(0.96 0 0);
+    --muted-foreground: oklch(0.45 0 0);
+    --accent: oklch(0.96 0 0);
+    --accent-foreground: oklch(0.15 0 0);
+    --destructive: oklch(0.645 0.208 25.331);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.9 0 0);
+    --input: oklch(0.9 0 0);
+    --ring: oklch(0.15 0 0);
+    --radius: 0.5rem;
+
+    /* Font Variables */
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-playfair: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+
+  .dark {
+    --background: oklch(0.09 0 0);
+    --foreground: oklch(0.9 0 0);
+    --card: oklch(0.09 0 0);
+    --card-foreground: oklch(0.9 0 0);
+    --popover: oklch(0.09 0 0);
+    --popover-foreground: oklch(0.9 0 0);
+    --primary: oklch(0.9 0 0);
+    --primary-foreground: oklch(0.09 0 0);
+    --secondary: oklch(0.14 0 0);
+    --secondary-foreground: oklch(0.9 0 0);
+    --muted: oklch(0.14 0 0);
+    --muted-foreground: oklch(0.64 0 0);
+    --accent: oklch(0.14 0 0);
+    --accent-foreground: oklch(0.9 0 0);
+    --destructive: oklch(0.62 0.236 25.593);
+    --destructive-foreground: oklch(0.9 0 0);
+    --border: oklch(0.14 0 0);
+    --input: oklch(0.14 0 0);
+    --ring: oklch(0.835 0 0);
+    --chart-1: oklch(0.711 0.182 248.972);
+    --chart-2: oklch(0.724 0.152 252.096);
+    --chart-3: oklch(0.749 0.094 105.064);
+    --chart-4: oklch(0.773 0.139 66.319);
+    --chart-5: oklch(0.761 0.17 39.544);
+  }
+
+  * {
+    @apply border-gray-200;
+    box-sizing: border-box;
+  }
+  
+  body {
+    @apply bg-white text-gray-900;
+    font-family: var(--font-inter);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: white;
+    color: #111827;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+/* Modern animations */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Modern Law Firm Design System - 2025 Trends */
+@layer utilities {
+  .text-gold-rich {
+    color: #FFD700;
+  }
+  .text-gold-champagne {
+    color: #F7E7CE;
+  }
+  .text-gold-warm {
+    color: #B8860B;
+  }
+  .text-gold-metallic {
+    color: #DAA520;
+  }
+  .text-black-primary {
+    color: #000000;
+  }
+  
+  .bg-gold-rich {
+    background-color: #FFD700;
+  }
+  .bg-gold-champagne {
+    background-color: #F7E7CE;
+  }
+  .bg-gold-warm {
+    background-color: #B8860B;
+  }
+  .bg-gold-metallic {
+    background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+  }
+  .bg-black-primary {
+    background-color: #000000;
+  }
+  
+  .border-gold-rich {
+    border-color: #FFD700;
+  }
+  .border-gold-warm {
+    border-color: #B8860B;
+  }
+  
+  /* Modern gradient backgrounds */
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    position: relative;
+  }
+  
+  .bg-gradient-gold::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 215, 0, 0.1) 50%, transparent 100%);
+    pointer-events: none;
+  }
+  
+  /* Modern button styles */
+  .btn-modern-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
+    @apply bg-gradient-to-r from-amber-400 to-amber-500 text-black;
+    @apply transition-transform duration-200 ease-out;
+    @apply hover:from-amber-500 hover:to-amber-600 hover:-translate-y-0.5;
+    @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
+  }
+  
+  .btn-modern-secondary {
+    @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
+    @apply border-2 border-amber-400 text-amber-300 bg-transparent;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:bg-amber-400 hover:text-black hover:-translate-y-0.5;
+    @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
+  }
+  
+  /* Modern card styles */
+  .card-modern {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
+    @apply border border-gray-100 hover:border-amber-200;
+  }
+  
+  .card-modern-dark {
+    @apply bg-black text-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
+    @apply border border-gray-800 hover:border-amber-400;
+  }
+
+  /* Optimized Trust Cards */
+  .trust-card {
+    @apply rounded-xl p-8 transition-colors duration-200;
+    contain: layout style;
+  }
+  
+  /* Hero Section Container */
+  .hero-section {
+    @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+    contain: layout style paint;
+  }
+  
+  /* Animation utilities */
+  .animate-float {
+    animation: float-gentle 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-gold {
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+/* Critical Performance Optimizations */
+.above-the-fold {
+  content-visibility: visible;
+}
+
+.below-the-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Hardware acceleration for performance */
+.btn-modern-primary,
+.btn-modern-secondary,
+.trust-card {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Focus states for accessibility */
+.focus-visible:focus {
+  outline: 2px solid #F59E0B;
+  outline-offset: 2px;
+}
+
+/* Skeleton loading for better perceived performance */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% { 
+    background-position: 200% 0; 
+  }
+  100% { 
+    background-position: -200% 0; 
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  .btn-modern-primary,
+  .btn-modern-secondary {
+    transform: none !important;
+  }
+}
+
+/* Performance optimization for interactive elements */
+button, a, [role="button"] {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Form optimizations */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  background-color: white !important;
+  color: #1f2937 !important;
+}
+
+/* Ensure form inputs are always light regardless of dark mode */
+input[type="text"],
+input[type="email"], 
+input[type="tel"],
+input[type="date"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  background-color: white !important;
+  color: #1f2937 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus, 
+input[type="tel"]:focus,
+input[type="date"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  background-color: white !important;
+  color: #1f2937 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Utility classes for performance */
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.contain-strict {
+  contain: strict;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-scroll {
+  will-change: scroll-position;
+}
+
+/* Mobile-first responsive optimizations */
+@media (max-width: 767px) {
+  /* Prevent horizontal overflow on mobile */
+  * {
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    overflow-x: hidden !important;
+    position: relative;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+  
+  /* Ensure all containers respect viewport width */
+  .container, 
+  .max-w-7xl, 
+  .max-w-6xl, 
+  .max-w-5xl, 
+  .max-w-4xl, 
+  .max-w-3xl {
+    max-width: 100vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Prevent images and videos from causing overflow */
+  img, video, iframe, svg {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+  }
+  
+  /* Disable scroll chaining and bouncing on iOS */
+  body {
+    -webkit-overflow-scrolling: touch;
+    -webkit-scroll-behavior: smooth;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: auto;
+  }
+  
+  /* Performance optimizations for mobile */
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *),
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):before,
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):after {
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+  }
+  
+  .btn-modern-primary,
+  .btn-modern-secondary {
+    transform: none !important;
+  }
+}
+
+/* Modern CSS Grid optimizations */
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.grid-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Smooth scroll for better UX */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Auto dark mode based on system preference */
+@media (prefers-color-scheme: dark) {
+  .auto-dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Mobile overflow prevention utilities */
+.no-horizontal-scroll {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+.mobile-safe-width {
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+.prevent-mobile-zoom {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Root container safety */
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Additional mobile viewport fixes */
+@media (max-width: 768px) {
+  /* Prevent any element from extending beyond viewport */
+  * {
+    max-width: 100vw !important;
+  }
+  
+  /* Specific fixes for common overflow culprits */
+  .grid, 
+  .flex, 
+  .block,
+  div, 
+  section, 
+  article, 
+  main, 
+  header, 
+  footer {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Ensure text doesn't cause overflow */
+  h1, h2, h3, h4, h5, h6, p, span, div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
