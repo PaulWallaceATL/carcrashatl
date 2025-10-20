@@ -65,6 +65,70 @@ export function AICaseBuilder() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Dev auto-fill function for testing
+  const autoFillTestData = () => {
+    // Fill form with realistic test data
+    setCaseDetails({
+      name: 'John Smith',
+      email: 'john.smith@test.com',
+      phone: '(404) 555-1234',
+      accidentDate: '2024-10-15',
+      location: 'I-75 and Howell Mill Rd, Atlanta, GA',
+      description: 'I was rear-ended at a red light by a driver who was texting. The impact was severe and pushed my car into the intersection. The other driver admitted fault at the scene. Multiple witnesses stopped to help.',
+      injuries: 'Severe whiplash, lower back pain, neck stiffness, headaches. Went to ER immediately after accident. Still experiencing pain 2 weeks later.',
+      policeReportFiled: true,
+    });
+
+    // Add mock files
+    const mockFiles: UploadedFile[] = [
+      {
+        id: 'mock-1',
+        name: 'accident-scene-photo-1.jpg',
+        type: 'image',
+        size: '2.4 MB',
+        uploadDate: new Date(),
+        category: 'accident-scene',
+      },
+      {
+        id: 'mock-2',
+        name: 'vehicle-rear-damage.jpg',
+        type: 'image',
+        size: '3.1 MB',
+        uploadDate: new Date(),
+        category: 'vehicle-damage',
+      },
+      {
+        id: 'mock-3',
+        name: 'medical-records-ER.pdf',
+        type: 'document',
+        size: '0.8 MB',
+        uploadDate: new Date(),
+        category: 'medical',
+      },
+      {
+        id: 'mock-4',
+        name: 'police-report-APD-12345.pdf',
+        type: 'document',
+        size: '1.2 MB',
+        uploadDate: new Date(),
+        category: 'police-report',
+      },
+      {
+        id: 'mock-5',
+        name: 'insurance-claim-form.pdf',
+        type: 'document',
+        size: '0.5 MB',
+        uploadDate: new Date(),
+        category: 'insurance',
+      },
+    ];
+
+    setUploadedFiles(mockFiles);
+    
+    // Show success message
+    alert('✅ Auto-filled with test data! Ready to analyze.');
+  };
+
   const steps = [
     { id: 'upload', name: 'Upload Evidence', icon: Upload, description: 'Add photos, documents, and records' },
     { id: 'analyze', name: 'AI Analysis', icon: Brain, description: 'AI reviews your case details' },
@@ -228,12 +292,27 @@ export function AICaseBuilder() {
               <Brain className="h-8 w-8 text-white" />
             </div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
             AI Case Builder
           </h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             Upload your accident evidence and get AI-powered case analysis with professional reports you can share with attorneys
           </p>
+          
+          {/* Dev Auto-Fill Button */}
+          <div className="mt-6">
+            <Button
+              onClick={autoFillTestData}
+              variant="outline"
+              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 hover:from-purple-600 hover:to-pink-600 font-bold shadow-lg"
+            >
+              <Star className="h-4 w-4 mr-2" />
+              🧪 DEV: Auto-Fill Test Data
+            </Button>
+            <p className="text-xs text-gray-500 mt-2">
+              Click to instantly populate form with realistic test data
+            </p>
+          </div>
         </div>
 
         {/* Progress Steps */}
