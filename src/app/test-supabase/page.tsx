@@ -23,7 +23,11 @@ export default async function TestSupabasePage() {
       .limit(1)
     
     if (error) {
-      if (error.message.includes('relation') || error.code === 'PGRST116') {
+      if (error.message.includes('relation') || 
+          error.message.includes('Could not find the table') ||
+          error.message.includes('does not exist') ||
+          error.code === 'PGRST116' ||
+          error.code === '42P01') {
         connectionStatus = {
           success: true,
           message: 'Supabase connection successful!',

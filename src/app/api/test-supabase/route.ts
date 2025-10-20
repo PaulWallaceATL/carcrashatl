@@ -19,7 +19,11 @@ export async function GET() {
     // which means the connection is working
     if (error) {
       // Check if it's a "table doesn't exist" error, which is fine for testing
-      if (error.message.includes('relation') || error.code === 'PGRST116') {
+      if (error.message.includes('relation') || 
+          error.message.includes('Could not find the table') ||
+          error.message.includes('does not exist') ||
+          error.code === 'PGRST116' ||
+          error.code === '42P01') {
         return NextResponse.json({
           success: true,
           message: '✅ Supabase connection successful!',
