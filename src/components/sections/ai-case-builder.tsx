@@ -180,24 +180,17 @@ export function AICaseBuilder() {
       // Save case number for display
       setCaseNumber(result.case_number);
 
-      // Also download JSON backup
-      const reportData = {
-        caseNumber: result.case_number,
-        caseDetails,
-        uploadedFiles,
-        caseAnalysis,
-        generatedDate: new Date()
-      };
-
-      const dataStr = JSON.stringify(reportData, null, 2);
-      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-      
-      const exportFileDefaultName = `case-${result.case_number}.json`;
-      
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
+      // Generate and download user-friendly HTML report
+      if (caseAnalysis) {
+        const { generateCaseReport, downloadReport } = await import('@/lib/report-generator');
+        const htmlReport = generateCaseReport(
+          result.case_number,
+          caseDetails,
+          caseAnalysis,
+          uploadedFiles
+        );
+        downloadReport(htmlReport, result.case_number);
+      }
 
       setActiveStep('export');
       setIsSubmitting(false);
@@ -658,8 +651,11 @@ export function AICaseBuilder() {
                   <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-8 max-w-md mx-auto">
                     <div className="text-sm font-medium text-blue-900 mb-2">Your Case Number</div>
                     <div className="text-3xl font-bold font-mono text-blue-700 mb-3">{caseNumber}</div>
-                    <div className="text-sm text-blue-800">
+                    <div className="text-sm text-blue-800 mb-4">
                       Save this number to track your case status at any time
+                    </div>
+                    <div className="text-xs text-blue-700 bg-blue-100 rounded p-3">
+                      📄 Your detailed case report has been downloaded. Open the HTML file in any browser to view your complete analysis, estimated value, and next steps.
                     </div>
                   </div>
                 )}
