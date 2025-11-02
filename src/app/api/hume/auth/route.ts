@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { fetchAccessToken } from 'hume';
 
 export const runtime = 'nodejs';
 
@@ -22,11 +21,38 @@ export async function GET() {
       );
     }
 
-    // Generate access token for EVI via helper (SDK v0.15+)
-    const accessToken = await fetchAccessToken({
-      apiKey,
-      secretKey,
+    // Generate access token for EVI via OAuth client credentials
+    const basic = Buffer.from(`${apiKey}:${secretKey}`).toString('base64');
+    const res = await fetch('https://api.hume.ai/oauth2-cc/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Basic ${basic}`,
+      },
+      body: new URLSearchParams({ grant_type: 'client_credentials' }).toString(),
+      // No caching of tokens at the edge
+      cache: 'no-store',
     });
+
+    if (!res.ok) {
+      let details: unknown;
+      try {
+        details = await res.json();
+      } catch {
+        details = await res.text();
+      }
+      console.error('Hume token request failed', { status: res.status, details });
+      return NextResponse.json(
+        {
+          error: 'Failed to generate access token',
+          message: typeof details === 'string' && details.trim() ? details : `Hume responded with ${res.status}`,
+        },
+        { status: 500 }
+      );
+    }
+
+    const data = await res.json();
+    const accessToken = data?.access_token as string;
 
     return NextResponse.json({
       accessToken: accessToken,
