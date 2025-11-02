@@ -232,6 +232,16 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                 <span>Find My Attorney</span>
                 <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
               </Link>
+
+              <Link
+                href="/voice-assistant"
+                className="group relative inline-flex items-center justify-center px-6 sm:px-8 py-4 sm:py-5 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 bg-size-200 bg-pos-0 hover:bg-pos-100 text-black font-bold rounded-2xl transition-all duration-500 text-base sm:text-lg shadow-2xl shadow-yellow-500/30 hover:shadow-yellow-500/50 transform hover:-translate-y-1 hover:scale-105"
+                style={{ backgroundSize: '200% 100%' }}
+              >
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ backgroundSize: '200% 100%', animation: 'shimmer 2s infinite' }} />
+                <MessageCircle className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
+                <span className="relative z-10">Talk to AI Assistant</span>
+              </Link>
             </div>
 
             {/* Emergency Contact - Premium Design */}
