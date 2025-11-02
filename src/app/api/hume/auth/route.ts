@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { HumeClient } from 'hume';
+import { fetchAccessToken } from 'hume';
 
 export const runtime = 'nodejs';
 
@@ -22,14 +22,11 @@ export async function GET() {
       );
     }
 
-    // Initialize Hume client (Node SDK v0.15+)
-    const client = new HumeClient({
-      apiKey: apiKey,
-      secretKey: secretKey,
+    // Generate access token for EVI via helper (SDK v0.15+)
+    const accessToken = await fetchAccessToken({
+      apiKey,
+      secretKey,
     });
-
-    // Generate access token for EVI (SDK v0.15+)
-    const accessToken = await client.empathicVoice.chat.createAccessToken();
 
     return NextResponse.json({
       accessToken: accessToken,
