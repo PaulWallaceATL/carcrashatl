@@ -90,10 +90,7 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
       };
 
       // Connect to Hume EVI WebSocket
-      const configId = process.env.NEXT_PUBLIC_HUME_CONFIG_ID;
-      const wsUrl = configId 
-        ? `wss://api.hume.ai/v0/evi/chat?access_token=${accessToken}&config_id=${configId}`
-        : `wss://api.hume.ai/v0/evi/chat?access_token=${accessToken}`;
+      const wsUrl = `wss://api.hume.ai/v0/evi/chat?access_token=${accessToken}`;
 
       socketRef.current = new WebSocket(wsUrl);
 
@@ -246,7 +243,7 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
               <strong>Error:</strong> {error}
             </p>
             <p className="text-red-600 text-xs mt-2">
-              Make sure you've added your Hume API credentials to .env.local
+              Check your Hume API credentials and permissions in your server environment (e.g., Vercel project settings).
             </p>
           </div>
         )}
