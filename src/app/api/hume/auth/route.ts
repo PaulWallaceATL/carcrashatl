@@ -16,7 +16,7 @@ export async function GET() {
       return NextResponse.json(
         { 
           error: 'Hume API credentials not configured',
-          message: 'Please add HUME_API_KEY and HUME_SECRET_KEY to your .env.local file'
+          message: 'Missing HUME_API_KEY and/or HUME_SECRET_KEY. In local dev, add them to .env.local. In production (e.g., Vercel), add them as Project Environment Variables.'
         },
         { status: 500 }
       );
@@ -28,8 +28,8 @@ export async function GET() {
       secretKey: secretKey,
     });
 
-    // Generate access token for EVI
-    const accessToken = await client.empathicVoice.chat.getAccessToken();
+    // Generate access token for EVI (SDK v0.15+)
+    const accessToken = await client.empathicVoice.chat.createAccessToken();
 
     return NextResponse.json({
       accessToken: accessToken,
