@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Phone, PhoneOff, Volume2, VolumeX } from 'lucide-react';
+import { Mic, MicOff, Phone, PhoneOff } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -16,6 +16,7 @@ export function VoiceAssistant() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [status, setStatus] = useState<string>('Ready to help');
   const [error, setError] = useState<string>('');
+  const [isAssistantSpeaking, setIsAssistantSpeaking] = useState(false);
   
   const socketRef = useRef<WebSocket | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -128,6 +129,12 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
           systemPrompt: SYSTEM_PROMPT,
         }));
 
+        // Proactive greeting
+        socketRef.current?.send(JSON.stringify({
+          type: 'assistant_input',
+          text: 'Hi, I am your voice legal guidance assistant. I\'m listening—how can I help you today?'
+        }));
+
         // Start recording
         mediaRecorderRef.current?.start(100); // Send data every 100ms
       };
@@ -189,6 +196,8 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
       const source = audioContextRef.current.createBufferSource();
       source.buffer = audioBuffer;
       source.connect(audioContextRef.current.destination);
+      setIsAssistantSpeaking(true);
+      source.onended = () => setIsAssistantSpeaking(false);
       source.start();
     } catch (err) {
       console.error('Error playing audio:', err);
@@ -252,13 +261,36 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
         </p>
       </div>
 
-      {/* Status Display */}
+      {/* Status Display + Voice Orb */}
       <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
-        <div className="flex items-center justify-center mb-6">
-          <div className={`w-4 h-4 rounded-full mr-3 ${
-            isConnected ? 'bg-green-500 animate-pulse' : 'bg-gray-300'
-          }`} />
-          <span className="text-lg font-medium">{status}</span>
+        <div className="flex flex-col items-center gap-4 mb-4">
+          {/* Voice state orb */}
+          <div className="relative">
+            <div
+              className={`absolute -inset-4 rounded-full blur-2xl transition-opacity ${
+                isConnected ? (isAssistantSpeaking ? 'bg-yellow-400/40 opacity-90' : 'bg-emerald-400/30 opacity-70') : 'opacity-0'
+              }`}
+            />
+            <div
+              className={`relative w-28 h-28 rounded-full flex items-center justify-center shadow-xl border ${
+                isAssistantSpeaking
+                  ? 'bg-gradient-to-br from-yellow-300 to-orange-400 border-yellow-300'
+                  : isConnected
+                  ? 'bg-gradient-to-br from-emerald-300 to-teal-400 border-emerald-300'
+                  : 'bg-gradient-to-br from-gray-200 to-gray-300 border-gray-300'
+              }`}
+            >
+              {isAssistantSpeaking ? (
+                <div className="w-10 h-10 rounded-full bg-white/70 animate-ping" />
+              ) : isConnected ? (
+                <div className="w-3 h-3 rounded-full bg-white animate-pulse" />
+              ) : (
+                <div className="w-3 h-3 rounded-full bg-white/70" />
+              )}
+            </div>
+          </div>
+
+          <span className="text-lg font-medium">{isAssistantSpeaking ? 'Speaking…' : status}</span>
         </div>
 
         {error && (
@@ -272,35 +304,32 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
           </div>
         )}
 
-        {/* Control Buttons */}
-        <div className="flex justify-center gap-4">
+        {/* Controls: single primary button + compact mute */}
+        <div className="flex items-center justify-center gap-4">
           {!isConnected ? (
             <button
               onClick={connectToVoiceAssistant}
-              className="flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold"
+              className="flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold shadow-lg"
             >
-              <Phone size={24} />
+              <Phone size={22} />
               Start Voice Call
             </button>
           ) : (
             <>
               <button
                 onClick={toggleMute}
-                className={`flex items-center gap-2 px-6 py-4 rounded-lg transition-colors ${
-                  isMuted 
-                    ? 'bg-yellow-500 text-white hover:bg-yellow-600' 
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                className={`p-4 rounded-full border transition-colors ${
+                  isMuted ? 'bg-yellow-500 text-white border-yellow-600 hover:bg-yellow-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
                 }`}
+                aria-label={isMuted ? 'Unmute microphone' : 'Mute microphone'}
               >
-                {isMuted ? <MicOff size={24} /> : <Mic size={24} />}
-                {isMuted ? 'Unmute' : 'Mute'}
+                {isMuted ? <MicOff size={20} /> : <Mic size={20} />}
               </button>
-              
               <button
                 onClick={disconnect}
-                className="flex items-center gap-2 px-6 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                className="flex items-center gap-2 px-8 py-4 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors text-lg font-semibold shadow-lg"
               >
-                <PhoneOff size={24} />
+                <PhoneOff size={22} />
                 End Call
               </button>
             </>
