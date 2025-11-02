@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Hume } from 'hume';
+import { HumeClient } from 'hume';
 
 export const runtime = 'nodejs';
 
@@ -22,8 +22,8 @@ export async function GET() {
       );
     }
 
-    // Initialize Hume client
-    const client = new Hume.Client({
+    // Initialize Hume client (Node SDK v0.15+)
+    const client = new HumeClient({
       apiKey: apiKey,
       secretKey: secretKey,
     });
