@@ -21,6 +21,7 @@ export function VoiceAssistant() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const isSendingRef = useRef<boolean>(false);
 
   // System prompt for the legal guidance assistant
   const SYSTEM_PROMPT = `You are a compassionate and knowledgeable legal guidance assistant for people who have been in car accidents in Atlanta, Georgia. Your role is to:
@@ -80,12 +81,35 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
         } 
       });
 
+      // Helper to turn Blob -> base64 string
+      const blobToBase64 = (blob: Blob): Promise<string> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const result = reader.result as string;
+            const base64 = result.split(',')[1] || '';
+            resolve(base64);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      };
+
       // Setup media recorder
       mediaRecorderRef.current = new MediaRecorder(stream);
-      
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
+      mediaRecorderRef.current.ondataavailable = async (event) => {
+        try {
+          if (event.data.size > 0 && socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+            // Convert to base64 and stream to Hume as audio_input
+            const base64 = await blobToBase64(event.data);
+            const payload = {
+              type: 'audio_input',
+              data: base64,
+            } as const;
+            socketRef.current.send(JSON.stringify(payload));
+          }
+        } catch (err) {
+          console.error('Error sending audio chunk:', err);
         }
       };
 
@@ -98,10 +122,10 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
         setIsConnected(true);
         setStatus('Connected - Start speaking');
         
-        // Send system prompt
+        // Send session settings with systemPrompt
         socketRef.current?.send(JSON.stringify({
-          type: 'system_prompt',
-          text: SYSTEM_PROMPT
+          type: 'session_settings',
+          systemPrompt: SYSTEM_PROMPT,
         }));
 
         // Start recording
@@ -125,7 +149,7 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
               timestamp: new Date(),
               emotions: data.emotions,
             }]);
-          } else if (data.type === 'audio') {
+          } else if (data.type === 'audio_output') {
             // Play audio response
             playAudioResponse(data.data);
           }
