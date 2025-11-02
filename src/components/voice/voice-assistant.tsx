@@ -23,6 +23,9 @@ export function VoiceAssistant() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const isSendingRef = useRef<boolean>(false);
+  const playbackTimeRef = useRef<number>(0); // schedule audio chunks sequentially
+  const pendingChunksRef = useRef<number>(0); // track active/scheduled chunks
+  const isAssistantSpeakingRef = useRef<boolean>(false);
 
   // System prompt for the legal guidance assistant
   const SYSTEM_PROMPT = `You are a compassionate and knowledgeable legal guidance assistant for people who have been in car accidents in Atlanta, Georgia. Your role is to:
@@ -100,7 +103,12 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
       mediaRecorderRef.current = new MediaRecorder(stream);
       mediaRecorderRef.current.ondataavailable = async (event) => {
         try {
-          if (event.data.size > 0 && socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+          if (
+            event.data.size > 0 &&
+            socketRef.current &&
+            socketRef.current.readyState === WebSocket.OPEN &&
+            !isAssistantSpeakingRef.current // half-duplex: don't stream while assistant is speaking
+          ) {
             // Convert to base64 and stream to Hume as audio_input
             const base64 = await blobToBase64(event.data);
             const payload = {
@@ -193,12 +201,26 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
         Uint8Array.from(atob(audioData), c => c.charCodeAt(0)).buffer
       );
       
-      const source = audioContextRef.current.createBufferSource();
+      const ctx = audioContextRef.current;
+      const now = ctx.currentTime;
+      const startAt = Math.max(now, playbackTimeRef.current || now);
+
+      const source = ctx.createBufferSource();
       source.buffer = audioBuffer;
-      source.connect(audioContextRef.current.destination);
+      source.connect(ctx.destination);
+
+      // track speaking state and queue end
+      pendingChunksRef.current += 1;
       setIsAssistantSpeaking(true);
-      source.onended = () => setIsAssistantSpeaking(false);
-      source.start();
+      source.onended = () => {
+        pendingChunksRef.current -= 1;
+        if (pendingChunksRef.current <= 0) {
+          setIsAssistantSpeaking(false);
+        }
+      };
+
+      source.start(startAt);
+      playbackTimeRef.current = startAt + audioBuffer.duration;
     } catch (err) {
       console.error('Error playing audio:', err);
     }
@@ -227,6 +249,9 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
     socketRef.current = null;
     audioContextRef.current = null;
     audioChunksRef.current = [];
+    playbackTimeRef.current = 0;
+    pendingChunksRef.current = 0;
+    isAssistantSpeakingRef.current = false;
   };
 
   // Toggle mute
@@ -245,6 +270,11 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
       cleanupConnection();
     };
   }, []);
+
+  // Mirror speaking state in a ref for fast checks during ondataavailable
+  useEffect(() => {
+    isAssistantSpeakingRef.current = isAssistantSpeaking;
+  }, [isAssistantSpeaking]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
