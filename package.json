@@ -23,6 +23,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "hume": "^0.15.2",
     "lru-cache": "^11.1.0",
     "lucide-react": "^0.515.0",
     "next": "15.3.3",

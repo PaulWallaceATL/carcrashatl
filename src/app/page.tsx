@@ -234,6 +234,93 @@ export default function HomePage() {
               </div>
             </div>
           </section>
+
+          {/* Voice Assistant CTA Section - NEW */}
+          <section className="py-16 sm:py-20 bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 relative overflow-hidden" aria-labelledby="voice-assistant-heading">
+            {/* Animated Background */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+              <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
+            </div>
+            
+            <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              {/* Microphone Icon */}
+              <div className="flex justify-center mb-6">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-white rounded-full blur-xl opacity-50 animate-pulse" />
+                  <div className="relative bg-white/20 backdrop-blur-sm rounded-full p-6 border-2 border-white/40">
+                    <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C10.34 2 9 3.34 9 5V11C9 12.66 10.34 14 12 14C13.66 14 15 12.66 15 11V5C15 3.34 13.66 2 12 2ZM17 11C17 13.76 14.76 16 12 16C9.24 16 7 13.76 7 11H5C5 14.53 7.61 17.43 11 17.92V21H13V17.92C16.39 17.43 19 14.53 19 11H17Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Headline */}
+              <h2 id="voice-assistant-heading" className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                Prefer to <span className="text-yellow-300">Talk Instead?</span>
+              </h2>
+              
+              <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Our AI assistant can answer your questions right now - just speak naturally. 
+                It's <span className="font-semibold text-yellow-300">private, free, and available 24/7</span>.
+              </p>
+
+              {/* CTA Button */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                <a 
+                  href="/voice-assistant"
+                  className="group relative inline-flex items-center justify-center px-8 py-5 bg-white text-indigo-700 font-bold rounded-2xl hover:bg-yellow-300 hover:text-indigo-900 transition-all duration-300 text-lg shadow-2xl hover:shadow-yellow-300/50 transform hover:-translate-y-1 hover:scale-105"
+                >
+                  <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C10.34 2 9 3.34 9 5V11C9 12.66 10.34 14 12 14C13.66 14 15 12.66 15 11V5C15 3.34 13.66 2 12 2ZM17 11C17 13.76 14.76 16 12 16C9.24 16 7 13.76 7 11H5C5 14.53 7.61 17.43 11 17.92V21H13V17.92C16.39 17.43 19 14.53 19 11H17Z" />
+                  </svg>
+                  <span>Talk to AI Assistant Now</span>
+                  <svg className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
+              </div>
+
+              {/* Features */}
+              <div className="flex flex-wrap justify-center gap-6 text-white/80 text-sm">
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>No download required</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Works on phone & computer</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Instant responses</span>
+                </div>
+              </div>
+
+              {/* Quick Examples */}
+              <div className="mt-12 grid sm:grid-cols-3 gap-4 text-left">
+                {[
+                  { q: "What should I do right after an accident?" },
+                  { q: "When do I need to hire a lawyer?" },
+                  { q: "How do I deal with insurance companies?" }
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300">
+                    <p className="text-white/90 text-sm flex items-start">
+                      <span className="text-yellow-300 mr-2 flex-shrink-0">💬</span>
+                      <span className="italic">"{item.q}"</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
           
           {/* Understanding Section - Redesigned */}
           <section className="py-32 bg-gradient-to-b from-white via-blue-50/30 to-white relative overflow-hidden" aria-labelledby="understanding-heading">

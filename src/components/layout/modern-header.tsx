@@ -36,12 +36,14 @@ const navigationItems: NavigationItem[] = [
   { name: 'Home', href: '/' },
   { name: 'I Need Help', href: '/what-to-do-after-car-accident' },
   { name: 'My Rights', href: '/understanding-your-rights' },
+  { name: 'Voice Help 🎙️', href: '/voice-assistant' },
   { name: 'Build Case', href: '/ai-case-builder' },
   { name: 'Get Attorney', href: '/find-attorney' },
   { 
     name: 'Resources', 
     href: '/resources',
     submenu: [
+      { name: 'Voice Assistant', href: '/voice-assistant', description: 'Talk to our AI assistant about your accident' },
       { name: 'Emergency Steps', href: '/what-to-do-after-car-accident', description: 'What to do immediately after an accident' },
       { name: 'Know Your Rights', href: '/understanding-your-rights', description: 'Understanding your legal rights in Georgia' },
       { name: 'Free Case Review', href: '/free-case-evaluation', description: 'Get your case evaluated for free' },

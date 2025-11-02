@@ -1,0 +1,50 @@
+import { NextResponse } from 'next/server';
+import { Hume } from 'hume';
+
+export const runtime = 'nodejs';
+
+/**
+ * Hume API Authentication Endpoint
+ * Generates access tokens for Hume EVI (Empathic Voice Interface)
+ */
+export async function GET() {
+  try {
+    const apiKey = process.env.HUME_API_KEY;
+    const secretKey = process.env.HUME_SECRET_KEY;
+
+    if (!apiKey || !secretKey) {
+      return NextResponse.json(
+        { 
+          error: 'Hume API credentials not configured',
+          message: 'Please add HUME_API_KEY and HUME_SECRET_KEY to your .env.local file'
+        },
+        { status: 500 }
+      );
+    }
+
+    // Initialize Hume client
+    const client = new Hume.Client({
+      apiKey: apiKey,
+      secretKey: secretKey,
+    });
+
+    // Generate access token for EVI
+    const accessToken = await client.empathicVoice.chat.getAccessToken();
+
+    return NextResponse.json({
+      accessToken: accessToken,
+      expiresIn: 3600, // Token typically expires in 1 hour
+    });
+  } catch (error) {
+    console.error('Error generating Hume access token:', error);
+    
+    return NextResponse.json(
+      { 
+        error: 'Failed to generate access token',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
+  }
+}
+
