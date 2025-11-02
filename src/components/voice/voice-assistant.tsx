@@ -17,15 +17,21 @@ export function VoiceAssistant() {
   const [status, setStatus] = useState<string>('Ready to help');
   const [error, setError] = useState<string>('');
   const [isAssistantSpeaking, setIsAssistantSpeaking] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
   
   const socketRef = useRef<WebSocket | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const isSendingRef = useRef<boolean>(false);
   const playbackTimeRef = useRef<number>(0); // schedule audio chunks sequentially
   const pendingChunksRef = useRef<number>(0); // track active/scheduled chunks
   const isAssistantSpeakingRef = useRef<boolean>(false);
+  const hasGreetedRef = useRef<boolean>(false);
+  const reconnectAttemptsRef = useRef<number>(0);
+  const connectingRef = useRef<boolean>(false);
+  const maxReconnectAttempts = 3;
 
   // System prompt for the legal guidance assistant
   const SYSTEM_PROMPT = `You are a compassionate and knowledgeable legal guidance assistant for people who have been in car accidents in Atlanta, Georgia. Your role is to:
@@ -61,11 +67,17 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
   // Connect to Hume EVI
   const connectToVoiceAssistant = async () => {
     try {
+      if (connectingRef.current || isConnected) return;
+      connectingRef.current = true;
+      setIsConnecting(true);
       setStatus('Connecting...');
       setError('');
 
       // Get access token from our API
-      const response = await fetch('/api/hume/auth');
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+      const response = await fetch('/api/hume/auth', { signal: controller.signal, cache: 'no-store' });
+      clearTimeout(timeout);
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to authenticate');
@@ -84,6 +96,7 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
           autoGainControl: true,
         } 
       });
+      streamRef.current = stream;
 
       // Helper to turn Blob -> base64 string
       const blobToBase64 = (blob: Blob): Promise<string> => {
@@ -130,6 +143,9 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
       socketRef.current.onopen = () => {
         setIsConnected(true);
         setStatus('Connected - Start speaking');
+        setIsConnecting(false);
+        connectingRef.current = false;
+        reconnectAttemptsRef.current = 0;
         
         // Send session settings with systemPrompt
         socketRef.current?.send(JSON.stringify({
@@ -137,14 +153,19 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
           systemPrompt: SYSTEM_PROMPT,
         }));
 
-        // Proactive greeting
-        socketRef.current?.send(JSON.stringify({
-          type: 'assistant_input',
-          text: 'Hi, I am your voice legal guidance assistant. I\'m listening—how can I help you today?'
-        }));
+        // Proactive greeting once per session
+        if (!hasGreetedRef.current) {
+          socketRef.current?.send(JSON.stringify({
+            type: 'assistant_input',
+            text: 'Hi, I am your voice legal guidance assistant. I\'m listening—how can I help you today?'
+          }));
+          hasGreetedRef.current = true;
+        }
 
         // Start recording
-        mediaRecorderRef.current?.start(100); // Send data every 100ms
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'inactive') {
+          mediaRecorderRef.current.start(100); // Send data every 100ms
+        }
       };
 
       socketRef.current.onmessage = (event) => {
@@ -181,13 +202,75 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
 
       socketRef.current.onclose = () => {
         setIsConnected(false);
+        setIsConnecting(false);
+        connectingRef.current = false;
         setStatus('Disconnected');
         cleanupConnection();
+        // Attempt limited auto-reconnect if we have a mic stream
+        if (streamRef.current && reconnectAttemptsRef.current < maxReconnectAttempts) {
+          reconnectAttemptsRef.current += 1;
+          const delay = Math.min(1500 * reconnectAttemptsRef.current, 5000);
+          setTimeout(() => {
+            // Reuse stream; just re-open socket with fresh token
+            void reconnectSocket();
+          }, delay);
+        }
       };
 
     } catch (err) {
       console.error('Error connecting:', err);
       setError(err instanceof Error ? err.message : 'Failed to connect');
+      setStatus('Connection failed');
+      setIsConnecting(false);
+      connectingRef.current = false;
+    }
+  };
+
+  // Reconnect only the socket (reuse mic stream)
+  const reconnectSocket = async () => {
+    try {
+      setStatus('Reconnecting...');
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+      const response = await fetch('/api/hume/auth', { signal: controller.signal, cache: 'no-store' });
+      clearTimeout(timeout);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to authenticate');
+      }
+      const { accessToken } = await response.json();
+
+      const wsUrl = `wss://api.hume.ai/v0/evi/chat?access_token=${accessToken}`;
+      socketRef.current = new WebSocket(wsUrl);
+      socketRef.current.onopen = () => {
+        setIsConnected(true);
+        setStatus('Connected - Start speaking');
+        reconnectAttemptsRef.current = 0;
+        socketRef.current?.send(JSON.stringify({
+          type: 'session_settings',
+          systemPrompt: SYSTEM_PROMPT,
+        }));
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'inactive') {
+          mediaRecorderRef.current.start(100);
+        }
+      };
+      socketRef.current.onmessage = (e) => {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.type === 'audio_output') {
+            playAudioResponse(data.data);
+          }
+        } catch {}
+      };
+      socketRef.current.onerror = () => {
+        setError('Reconnection failed');
+      };
+      socketRef.current.onclose = () => {
+        setIsConnected(false);
+        setStatus('Disconnected');
+      };
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Reconnection failed');
       setStatus('Connection failed');
     }
   };
@@ -275,6 +358,32 @@ Remember: You're here to educate and guide, not to practice law. Always encourag
   useEffect(() => {
     isAssistantSpeakingRef.current = isAssistantSpeaking;
   }, [isAssistantSpeaking]);
+
+  // Ensure mic track enabled state reflects mute + speaking
+  useEffect(() => {
+    const enabled = !isMuted && !isAssistantSpeaking;
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(t => (t.enabled = enabled));
+    }
+  }, [isMuted, isAssistantSpeaking]);
+
+  // Pause sending when tab hidden
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (!mediaRecorderRef.current) return;
+      if (document.visibilityState === 'hidden') {
+        try { mediaRecorderRef.current.stop(); } catch {}
+      } else if (document.visibilityState === 'visible') {
+        try {
+          if (isConnected && mediaRecorderRef.current.state === 'inactive') {
+            mediaRecorderRef.current.start(100);
+          }
+        } catch {}
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, [isConnected]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
